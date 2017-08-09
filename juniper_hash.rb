@@ -140,7 +140,16 @@ class JuniperHash
     if lines_array.join('').include? '{'
       blocks = extract_blocks_from_block(lines_array)
       blocks.each do |bkey, l_array|
-        out[bkey] = format_blocks_to_hash(l_array, bkey)
+        bkey = extract_key_value_from_line(bkey)
+        if bkey[1] == ""
+          out[bkey[0]] = format_blocks_to_hash(l_array, bkey)
+        else
+          if out[bkey[0]].is_a? Hash
+            out[bkey[0]][bkey[1]] = format_blocks_to_hash(l_array, bkey) 
+          else
+            out[bkey[0]] = { bkey[1] => format_blocks_to_hash(l_array, bkey) }
+          end
+        end
       end
     else
       lines_array.each do |line|

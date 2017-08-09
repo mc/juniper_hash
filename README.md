@@ -13,3 +13,7 @@ JuniperHash.get_hash(text_config) == hash_config
 => true
 ```
 
+simple oneliner to print a config as YAML file:
+```ruby
+ruby -ryaml -rjuniper_hash -I. -e 'puts JuniperHash.get_hash(ARGF.read).to_yaml' < firewall.configdump
+```
