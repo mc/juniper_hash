@@ -77,7 +77,12 @@ class JuniperHash
     if value
       # example line:
       # instance-type vrf;
-      return [key, value.gsub(/;$/, '')]
+      # icmp-type [ echo-request echo-reply unreachable time-exceeded ];
+      if value =~ /^\[(.*)\];$/
+        return [key, $1.split(" ")]
+      else
+        return [key, value.gsub(/;$/, '')]
+      end
     else
       # example line:
       # vlan-tagging;
