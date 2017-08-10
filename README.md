@@ -17,3 +17,6 @@ simple oneliner to print a config as YAML file:
 ```ruby
 ruby -ryaml -rjuniper_hash -I. -e 'puts JuniperHash.get_hash(ARGF.read).to_yaml' < firewall.configdump
 ```
+
+*NB:* this repository changes the way the hash is created, meaning there is no backward-compatibility
+    to create a (valid) configuration from the hash. 
